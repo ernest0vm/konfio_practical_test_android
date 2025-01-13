@@ -1,0 +1,89 @@
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
+    id('kotlin-kapt')
+}
+
+android {
+    namespace 'com.example.dogswelove'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "com.example.dogswelove"
+        minSdk 24
+        targetSdk 35
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField('String', 'API_BASE_URL', '"https://jsonblob.com/api/"')
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        compose true
+        buildConfig true
+    }
+}
+
+dependencies {
+    // Kotlin
+    implementation libs.androidx.core.ktx.v1120
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.activity
+    implementation libs.androidx.constraintlayout
+    implementation libs.androidx.activity.ktx
+    implementation libs.androidx.cardview
+
+    // Compose
+    implementation libs.ui
+    implementation libs.material3
+    implementation libs.ui.tooling.preview
+    implementation libs.androidx.runtime
+
+    // Compose Compiler
+    implementation libs.androidx.compiler
+
+    // Retrofit (REST API Client)
+    implementation libs.retrofit
+    implementation libs.converter.gson
+
+    // Room (SQLite ORM)
+    implementation libs.androidx.room.runtime
+    implementation libs.androidx.room.ktx
+    implementation libs.androidx.coordinatorlayout
+    implementation libs.google.material
+    kapt libs.androidx.room.compiler
+
+    // ViewModel & LiveData (Jetpack)
+    implementation libs.androidx.lifecycle.viewmodel.ktx
+    implementation libs.androidx.lifecycle.livedata.ktx
+
+    // RecyclerView
+    implementation libs.androidx.recyclerview
+
+    // Glide
+    implementation libs.glide
+    kapt libs.compiler
+
+    // Coroutines
+    implementation libs.kotlinx.coroutines.core
+    implementation libs.kotlinx.coroutines.android
+
+    // Room Testing
+    testImplementation libs.androidx.room.testing
+}
